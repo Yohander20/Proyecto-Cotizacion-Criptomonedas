@@ -2,6 +2,7 @@ import {useState,useEffect } from 'react'
 import styled from '@emotion/styled'
 import Formulario from './components/formulario'
 import Resultado from './components/Resultado'
+import Spinner from './components/Spinner'
 import ImagenCripto from './img/imagen-criptos.png'
 
 const Contenedor=styled.div`
@@ -54,6 +55,7 @@ function App() {
       const cotizarCripto=async()=>{
 
       setCargando(true)  
+      setResultado({})
       const url=`https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${criptomoneda}&tsyms=${moneda}`
       
       const respuesta=await fetch(url)
@@ -79,7 +81,7 @@ function App() {
         <Formulario
           setMonedas={setMonedas}
         />
-      {cargando && <p>Cargando...</p>}  
+      {cargando && <Spinner/>}  
       {resultado.PRICE && <Resultado resultado={resultado}/>}
         </div>
     </Contenedor>
